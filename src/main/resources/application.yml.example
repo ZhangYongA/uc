@@ -1,0 +1,9 @@
+jdbc:
+  url: jdbc:mysql://localhost:3306/uc
+  username: root
+  password: root
+  driver: com.mysql.jdbc.Driver
+redis:
+  host: 127.0.0.1
+  port: 6397
+  db: 1
