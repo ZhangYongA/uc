@@ -1,11 +1,13 @@
 package com.y.uc.api;
 
 import com.y.uc.constant.ExceptionCode;
-import com.y.uc.domain.User;
-import com.y.uc.dto.Register;
+import com.y.uc.dto.ChangePasswordParam;
 import com.y.uc.dto.SimpleUser;
-import com.y.uc.exception.EmailAlreadyExistsException;
 import com.y.uc.exception.EncryptionPasswordException;
+import com.y.uc.exception.ExceedsAuthorizedAccessException;
+import com.y.uc.exception.PasswordNotMatchException;
+import com.y.uc.exception.UnLoginException;
+import com.y.uc.exception.UserNotExistsException;
 import com.y.uc.service.UserService;
 import com.y.uc.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +34,21 @@ public class UserApi {
         return Response.ok(user);
     }
 
-    @PostMapping("/user")
-    public Response<?> save(@RequestBody(required = false) Register register) {
-        SimpleUser user;
+    @PostMapping("/user/password")
+    public Response<?> changePassword(@RequestBody ChangePasswordParam param) {
         try {
-            user = userService.register(register);
-        } catch (EmailAlreadyExistsException e) {
-            user = userService.get(register.getEmail());
-            return Response.error(ExceptionCode.EMAIL_ALREADY_EXISTS, user);
+            userService.changePassword(param);
+        } catch (ExceedsAuthorizedAccessException e) {
+            return Response.error(ExceptionCode.VIRES_CHANGE_PASSWORD);
+        } catch (UserNotExistsException e) {
+            return Response.error(ExceptionCode.USER_NOT_EXISTS);
+        } catch (PasswordNotMatchException e) {
+            return Response.error(ExceptionCode.PASSWORD_NOT_MATCH);
         } catch (EncryptionPasswordException e) {
             return Response.error(ExceptionCode.SERVER_ERROR);
+        } catch (UnLoginException e) {
+            return Response.error(ExceptionCode.UN_LOGIN);
         }
-        return Response.ok(user);
+        return Response.ok();
     }
-
 }

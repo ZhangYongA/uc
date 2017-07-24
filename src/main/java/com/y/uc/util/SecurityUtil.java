@@ -19,7 +19,7 @@ public class SecurityUtil {
      */
     public static String encryption(String text) throws UnsupportedEncodingException {
         //确定计算方法
-        MessageDigest md5= null;
+        MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException ignored) {

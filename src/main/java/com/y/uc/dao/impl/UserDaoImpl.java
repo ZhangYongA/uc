@@ -28,8 +28,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User get(String email) {
+    public User getByEmail(String email) {
         return sqlSession.selectOne("UserDao.getByEmail", email);
+    }
+
+    @Override
+    public User getByToken(String token) {
+        return sqlSession.selectOne("UserDao.getByToken", token);
     }
 
     @Override

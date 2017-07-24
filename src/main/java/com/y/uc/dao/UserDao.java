@@ -11,7 +11,9 @@ public interface UserDao {
 
     User get(String email, String password);
 
-    User get(String email);
+    User getByEmail(String email);
+
+    User getByToken(String token);
 
     int save(User user);
 

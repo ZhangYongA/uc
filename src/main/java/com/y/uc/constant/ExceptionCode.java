@@ -3,13 +3,16 @@ package com.y.uc.constant;
 /**
  * Created by zhangyong on 2017/7/18.
  */
-public enum  ExceptionCode {
+public enum ExceptionCode {
 
     SUCCESS(0, "OK"),
-    LOGIN_EXCEPTION(1000001, "用户名或密码不正确！"),
-    MISS_REQUEST_PARAM(1000002, "请求参数不完整！"),
+    ILLEGAL_ARGUMENTS(1000002, "非法参数！"),
     EMAIL_ALREADY_EXISTS(1000003, "邮箱已注册！"),
-    SERVER_ERROR(999999, "服务器内部错误，请联系管理员！");
+    USER_NOT_EXISTS(1000004, "用户不存在！"),
+    PASSWORD_NOT_MATCH(1000005, "密码不正确！"),
+    VIRES_CHANGE_PASSWORD(1000006, "无权修改别人密码！"),
+    UN_LOGIN(1000007, "请先登录！"),
+    SERVER_ERROR(9999999, "服务器内部错误，请联系管理员！");
 
     private int code;
     private String msg;

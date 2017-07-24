@@ -27,7 +27,7 @@ public class RestExceptionHandler {
     public Response illegalArgumentExceptionHandler(HttpServletRequest request, Exception e) throws Exception{
         LOGGER.error("---DefaultException Handler---Host {} invokes url {} ERROR: {}"
                 , request.getRemoteHost(), request.getRequestURL(), Throwables.getStackTraceAsString(e));
-        return Response.error(ExceptionCode.MISS_REQUEST_PARAM);
+        return Response.error(ExceptionCode.ILLEGAL_ARGUMENTS, e.getMessage());
     }
 
     @ExceptionHandler(value = Exception.class)

@@ -11,6 +11,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String token;
     private Date createTime;
     private Date updateTime;
 
@@ -22,6 +23,7 @@ public class User {
         setName(builder.name);
         setEmail(builder.email);
         setPassword(builder.password);
+        setToken(builder.token);
         setCreateTime(builder.createTime);
         setUpdateTime(builder.updateTime);
     }
@@ -58,6 +60,14 @@ public class User {
         this.password = password;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -80,6 +90,7 @@ public class User {
         private String name;
         private String email;
         private String password;
+        private String token;
         private Date createTime;
         private Date updateTime;
 
@@ -103,6 +114,11 @@ public class User {
 
         public Builder password(String val) {
             password = val;
+            return this;
+        }
+
+        public Builder token(String val) {
+            token = val;
             return this;
         }
 
