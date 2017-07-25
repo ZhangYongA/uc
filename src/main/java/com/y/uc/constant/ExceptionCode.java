@@ -9,7 +9,7 @@ public enum ExceptionCode {
     ILLEGAL_ARGUMENTS(1000002, "非法参数！"),
     EMAIL_ALREADY_EXISTS(1000003, "邮箱已注册！"),
     USER_NOT_EXISTS(1000004, "用户不存在！"),
-    PASSWORD_NOT_MATCH(1000005, "密码不正确！"),
+    PASSWORD_ERROR(1000005, "密码不正确！"),
     VIRES_CHANGE_PASSWORD(1000006, "无权修改别人密码！"),
     UN_LOGIN(1000007, "请先登录！"),
     SERVER_ERROR(9999999, "服务器内部错误，请联系管理员！");

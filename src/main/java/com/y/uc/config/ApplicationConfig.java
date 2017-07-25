@@ -1,5 +1,6 @@
 package com.y.uc.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.y.uc.util.SpringUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,11 @@ public class ApplicationConfig {
     @Bean
     public SpringUtil springUtil() {
         return new SpringUtil();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
 }

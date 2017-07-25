@@ -1,11 +1,12 @@
 package com.y.uc.api;
 
+import com.y.uc.annotation.Login;
 import com.y.uc.constant.ExceptionCode;
 import com.y.uc.dto.ChangePasswordParam;
 import com.y.uc.dto.SimpleUser;
 import com.y.uc.exception.EncryptionPasswordException;
 import com.y.uc.exception.ExceedsAuthorizedAccessException;
-import com.y.uc.exception.PasswordNotMatchException;
+import com.y.uc.exception.PasswordErrorException;
 import com.y.uc.exception.UnLoginException;
 import com.y.uc.exception.UserNotExistsException;
 import com.y.uc.service.UserService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by zhangyong on 2017/7/18.
  */
+@Login
 @RestController
 @RequestMapping("/users/")
 public class UserApi {
@@ -34,6 +36,7 @@ public class UserApi {
         return Response.ok(user);
     }
 
+    @Login
     @PostMapping("/user/password")
     public Response<?> changePassword(@RequestBody ChangePasswordParam param) {
         try {
@@ -42,8 +45,8 @@ public class UserApi {
             return Response.error(ExceptionCode.VIRES_CHANGE_PASSWORD);
         } catch (UserNotExistsException e) {
             return Response.error(ExceptionCode.USER_NOT_EXISTS);
-        } catch (PasswordNotMatchException e) {
-            return Response.error(ExceptionCode.PASSWORD_NOT_MATCH);
+        } catch (PasswordErrorException e) {
+            return Response.error(ExceptionCode.PASSWORD_ERROR);
         } catch (EncryptionPasswordException e) {
             return Response.error(ExceptionCode.SERVER_ERROR);
         } catch (UnLoginException e) {

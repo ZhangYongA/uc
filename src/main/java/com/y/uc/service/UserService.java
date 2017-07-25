@@ -7,7 +7,7 @@ import com.y.uc.dto.SimpleUser;
 import com.y.uc.exception.EmailAlreadyExistsException;
 import com.y.uc.exception.EncryptionPasswordException;
 import com.y.uc.exception.ExceedsAuthorizedAccessException;
-import com.y.uc.exception.PasswordNotMatchException;
+import com.y.uc.exception.PasswordErrorException;
 import com.y.uc.exception.UnLoginException;
 import com.y.uc.exception.UserNotExistsException;
 
@@ -26,9 +26,9 @@ public interface UserService {
             throws EmailAlreadyExistsException, EncryptionPasswordException;
 
     SimpleUser login(LoginParam loginParam)
-            throws EncryptionPasswordException, UserNotExistsException, PasswordNotMatchException;
+            throws EncryptionPasswordException, UserNotExistsException, PasswordErrorException;
 
     void changePassword(ChangePasswordParam param)
-            throws ExceedsAuthorizedAccessException, UserNotExistsException, PasswordNotMatchException, EncryptionPasswordException, UnLoginException;
+            throws ExceedsAuthorizedAccessException, UserNotExistsException, PasswordErrorException, EncryptionPasswordException, UnLoginException;
 
 }

@@ -15,7 +15,7 @@ import com.y.uc.dto.SimpleUser;
 import com.y.uc.exception.EmailAlreadyExistsException;
 import com.y.uc.exception.EncryptionPasswordException;
 import com.y.uc.exception.ExceedsAuthorizedAccessException;
-import com.y.uc.exception.PasswordNotMatchException;
+import com.y.uc.exception.PasswordErrorException;
 import com.y.uc.exception.UnLoginException;
 import com.y.uc.exception.UserNotExistsException;
 import com.y.uc.service.UserService;
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService, BeanSelfAware {
 
     @Override
     public SimpleUser login(LoginParam loginParam)
-            throws EncryptionPasswordException, UserNotExistsException, PasswordNotMatchException {
+            throws EncryptionPasswordException, UserNotExistsException, PasswordErrorException {
         Preconditions.checkArgument(loginParam != null
                         && !Strings.isNullOrEmpty(loginParam.getEmail())
                         && !Strings.isNullOrEmpty(loginParam.getPassword())
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService, BeanSelfAware {
             throw new UserNotExistsException("邮箱不存在！");
         }
         if (!user.getPassword().equals(pwd)) {
-            throw new PasswordNotMatchException("密码不正确！");
+            throw new PasswordErrorException("密码不正确！");
         }
         return new SimpleUser(user);
     }
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService, BeanSelfAware {
     @Override
     public void changePassword(ChangePasswordParam param)
             throws ExceedsAuthorizedAccessException, UserNotExistsException
-            , PasswordNotMatchException, EncryptionPasswordException, UnLoginException {
+            , PasswordErrorException, EncryptionPasswordException, UnLoginException {
         Preconditions.checkArgument(param != null
                         && !Strings.isNullOrEmpty(param.getOldPassword())
                         && !Strings.isNullOrEmpty(param.getNewPassword())
@@ -151,7 +151,7 @@ public class UserServiceImpl implements UserService, BeanSelfAware {
             throw new EncryptionPasswordException("密码加密失败！");
         }
         if (!user.getPassword().equals(oldPwd)) {
-            throw new PasswordNotMatchException("旧密码错误！");
+            throw new PasswordErrorException("旧密码错误！");
         }
         userDao.updatePassword(param.getId(), newPwd);
     }
