@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":uc-dao")
+    compile project(":uc-util")
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+}

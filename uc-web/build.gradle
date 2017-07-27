@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':uc-service')
+    compile('org.springframework.boot:spring-boot-starter-web')
+}

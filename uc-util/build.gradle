@@ -1,0 +1,5 @@
+dependencies {
+    compile('org.springframework:spring-beans:4.3.10.RELEASE')
+    compile('org.springframework:spring-context:4.3.10.RELEASE')
+    compile project(':uc-model')
+}
