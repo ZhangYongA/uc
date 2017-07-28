@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import static com.y.uc.constant.ExceptionCode.UN_LOGIN;
 import static com.y.uc.util.AuthUtil.isLogin;
 
 /**
@@ -32,7 +33,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             Annotation methodAnnotation = method.getAnnotation(Login.class);
             if (classAnnotation != null || methodAnnotation != null) {
                 if (!isLogin()) {
-                    Response rsp = Response.error(ExceptionCode.UN_LOGIN);
+                    Response rsp = Response.error(UN_LOGIN.getCode(), UN_LOGIN.getMsg());
                     response.setHeader("content-type", "application/json;charset=utf-8");
                     OutputStream outputStream = response.getOutputStream();
                     ObjectMapper objectMapper = SpringUtil.getBean(ObjectMapper.class);

@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.y.uc.constant.ExceptionCode.EMAIL_ALREADY_EXISTS;
+import static com.y.uc.constant.ExceptionCode.PASSWORD_ERROR;
+import static com.y.uc.constant.ExceptionCode.SERVER_ERROR;
+import static com.y.uc.constant.ExceptionCode.USER_NOT_EXISTS;
+
 /**
  * Created by zhangyong on 2017/7/21.
  */
@@ -35,9 +40,9 @@ public class AuthApi {
             user = userService.register(register);
         } catch (EmailAlreadyExistsException e) {
             user = userService.get(register.getEmail());
-            return Response.error(ExceptionCode.EMAIL_ALREADY_EXISTS, user);
+            return Response.error(EMAIL_ALREADY_EXISTS.getCode(), EMAIL_ALREADY_EXISTS.getMsg(), user);
         } catch (EncryptionPasswordException e) {
-            return Response.error(ExceptionCode.SERVER_ERROR);
+            return Response.error(SERVER_ERROR.getCode(), SERVER_ERROR.getMsg());
         }
         return Response.ok(user);
     }
@@ -48,11 +53,11 @@ public class AuthApi {
         try {
             user = userService.login(loginParam);
         } catch (EncryptionPasswordException e) {
-            return Response.error(ExceptionCode.SERVER_ERROR);
+            return Response.error(SERVER_ERROR.getCode(), SERVER_ERROR.getMsg());
         } catch (UserNotExistsException e) {
-            return Response.error(ExceptionCode.USER_NOT_EXISTS);
+            return Response.error(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMsg());
         } catch (PasswordErrorException e) {
-            return Response.error(ExceptionCode.PASSWORD_ERROR);
+            return Response.error(PASSWORD_ERROR.getCode(), PASSWORD_ERROR.getMsg());
         }
         Cookie cookie = new Cookie(Constant.Cookie.TOKEN, user.getToken());
         cookie.setDomain("localhost");
