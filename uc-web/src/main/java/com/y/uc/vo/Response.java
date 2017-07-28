@@ -28,15 +28,15 @@ public class Response<T> {
         return response;
     }
 
-    public static <T> Response<T> error(ExceptionCode exceptionCode, T data) {
+    public static <T> Response<T> error(int code, String msg, T data) {
         Response<T> response = new Response<>();
-        response.setCode(exceptionCode.getCode());
-        response.setMsg(exceptionCode.getMsg());
+        response.setCode(code);
+        response.setMsg(msg);
         response.setData(data);
         return response;
     }
 
-    public static <T> Response<T> error(ExceptionCode exceptionCode) {
-        return error(exceptionCode, null);
+    public static <T> Response<T> error(int code, String msg) {
+        return error(code, msg, null);
     }
 }

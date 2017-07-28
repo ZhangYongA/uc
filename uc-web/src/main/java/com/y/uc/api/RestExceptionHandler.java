@@ -1,7 +1,6 @@
 package com.y.uc.api;
 
 import com.google.common.base.Throwables;
-import com.y.uc.constant.ExceptionCode;
 import com.y.uc.vo.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static com.y.uc.constant.ExceptionCode.ILLEGAL_ARGUMENTS;
+import static com.y.uc.constant.ExceptionCode.SERVER_ERROR;
 
 
 /**
@@ -24,10 +26,10 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     @ResponseBody
-    public Response illegalArgumentExceptionHandler(HttpServletRequest request, Exception e) throws Exception{
+    public Response illegalArgumentExceptionHandler(HttpServletRequest request, Exception e) throws Exception {
         LOGGER.error("---DefaultException Handler---Host {} invokes url {} ERROR: {}"
                 , request.getRemoteHost(), request.getRequestURL(), Throwables.getStackTraceAsString(e));
-        return Response.error(ExceptionCode.ILLEGAL_ARGUMENTS, e.getMessage());
+        return Response.error(ILLEGAL_ARGUMENTS.getCode(), ILLEGAL_ARGUMENTS.getMsg(), e.getMessage());
     }
 
     @ExceptionHandler(value = Exception.class)
@@ -35,7 +37,7 @@ public class RestExceptionHandler {
     public Response defaultHandler(HttpServletRequest request, Exception e) throws Exception {
         LOGGER.error("---DefaultException Handler---Host {} invokes url {} ERROR: {}"
                 , request.getRemoteHost(), request.getRequestURL(), Throwables.getStackTraceAsString(e));
-        return Response.error(ExceptionCode.SERVER_ERROR, e.getMessage());
+        return Response.error(SERVER_ERROR.getCode(), SERVER_ERROR.getMsg(), e.getMessage());
     }
 
 }

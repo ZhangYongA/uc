@@ -1,7 +1,6 @@
 package com.y.uc.api;
 
 
-import com.y.uc.constant.ExceptionCode;
 import com.y.uc.exception.EncryptionPasswordException;
 import com.y.uc.exception.ExceedsAuthorizedAccessException;
 import com.y.uc.exception.PasswordErrorException;
@@ -20,10 +19,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.y.uc.constant.ExceptionCode.PASSWORD_ERROR;
+import static com.y.uc.constant.ExceptionCode.SERVER_ERROR;
+import static com.y.uc.constant.ExceptionCode.UN_LOGIN;
+import static com.y.uc.constant.ExceptionCode.USER_NOT_EXISTS;
+import static com.y.uc.constant.ExceptionCode.VIRES_CHANGE_PASSWORD;
+
 /**
  * Created by zhangyong on 2017/7/18.
  */
-//@Login
+@Login
 @RestController
 @RequestMapping("/users/")
 public class UserApi {
@@ -43,15 +48,15 @@ public class UserApi {
         try {
             userService.changePassword(param);
         } catch (ExceedsAuthorizedAccessException e) {
-            return Response.error(ExceptionCode.VIRES_CHANGE_PASSWORD);
+            return Response.error(VIRES_CHANGE_PASSWORD.getCode(), VIRES_CHANGE_PASSWORD.getMsg());
         } catch (UserNotExistsException e) {
-            return Response.error(ExceptionCode.USER_NOT_EXISTS);
+            return Response.error(USER_NOT_EXISTS.getCode(), USER_NOT_EXISTS.getMsg());
         } catch (PasswordErrorException e) {
-            return Response.error(ExceptionCode.PASSWORD_ERROR);
+            return Response.error(PASSWORD_ERROR.getCode(), PASSWORD_ERROR.getMsg());
         } catch (EncryptionPasswordException e) {
-            return Response.error(ExceptionCode.SERVER_ERROR);
+            return Response.error(SERVER_ERROR.getCode(), SERVER_ERROR.getMsg());
         } catch (UnLoginException e) {
-            return Response.error(ExceptionCode.UN_LOGIN);
+            return Response.error(UN_LOGIN.getCode(), UN_LOGIN.getMsg());
         }
         return Response.ok();
     }
